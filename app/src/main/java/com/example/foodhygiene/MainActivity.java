@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
        // String names = getResources().getString(Name.get(0));
         ArrayList<String> Rate = new ArrayList<String>();
 
+        // try catch
 
         try {
 
