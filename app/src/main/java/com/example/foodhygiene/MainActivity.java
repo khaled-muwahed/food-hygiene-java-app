@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //stopped forcing the app to run in the background thread., abstract to a separate thread
+       // StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
         input = findViewById(R.id.input);
         bName = findViewById(R.id.bName);
         reset = findViewById(R.id.reset);
@@ -112,67 +112,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void on_click (View v)
     {
-        ArrayList<String> Name = new ArrayList<String>();
-        // String names = getResources().getString(Name.get(0));
-        ArrayList<String> Rate = new ArrayList<String>();
-
-        // try catch
-
-        try {
-
-            URL url = new URL("http://sandbox.kriswelsh.com/hygieneapi/hygiene.php?op=search_postcode&postcode=" + input.getText());
-            URLConnection tc = url.openConnection();
-            InputStreamReader isr = new InputStreamReader(tc.getInputStream());
-            BufferedReader in = new BufferedReader(isr);
-
-            String line = "" , rb= "" ,businessInfo = "";
-
-            while ((line = in.readLine()) != null) {
-                rb = rb + line;
-            }
-            JSONArray ja = new JSONArray(rb);
-
-            for (int i = 0; i < ja.length(); i ++)
-            {
-                JSONObject jo = (JSONObject) ja.get(i);
-                Name.add(jo.getString("BusinessName"));
-                // bName.setText(Name.get(0));
-
-                // bName.append(Name.get(0));
-                businessInfo += "Business name : " + jo.get("BusinessName") + "\n"
-                        + "Business Address : " +jo.get("AddressLine2" ) + "\n"
-                        + "Postcode : " +jo.get("PostCode" ) + "\n"
-                        + "Rating : "+ jo.get("RatingValue" ) + "\n"
-                        + "\n ______________________ \n";
-
-            }
-            bName.setText(businessInfo);
-
-            // in.close();
-               /* for (int i = 0; i < ja.length(); i ++)
-                {
-                    JSONObject jo = (JSONObject) ja.get(i);
-                    Rate.add(jo.getString("RatingValue"));
-                  //  bRate.setText(Rate.get(0));
-                    bRate.append(Rate.get(0) );
-
-                }*/
-
-
-            in.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+      HygieneWebServiceClient client = new HygieneWebServiceClient(bName);
+      client.getRatingByPostcode(input.getText().toString());
     }
 
     public void on_click_locate (View v)
     {
-        ArrayList<String> Name = new ArrayList<String>();
+        HygieneWebServiceClient client = new HygieneWebServiceClient(bName);
+        client.getRatingByLocation(lat,lng);
+     /*   ArrayList<String> Name = new ArrayList<String>();
         System.out.println(lat);
         System.out.println(lng);
 
@@ -216,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
     }
 
     public  void reset (View v){
