@@ -8,6 +8,7 @@ public class Restaurant {
     private int hygieneRate;
     private String address;
     private String postCode;
+    private String ratingDate;
 
 
 
@@ -16,6 +17,7 @@ public class Restaurant {
         this.hygieneRate= hygieneRate;
         this.address= address;
         this.postCode=postCode;
+        this.ratingDate=ratingDate;
 
     }
     public String getName() {
@@ -46,6 +48,13 @@ public class Restaurant {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public String getRatingDate() {
+        return ratingDate;
+    }
+
+    public void setRatingDate(String ratingDate) {
+        this.ratingDate = ratingDate;
     }
 
 }

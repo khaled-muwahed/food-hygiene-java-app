@@ -64,6 +64,7 @@
                                 +"                                    "
                                 + jo.getString("AddressLine3"));
                         restaurant.setPostCode(jo.getString("PostCode"));
+                        restaurant.setRatingDate(jo.getString("RatingDate"));
                         info.add(restaurant);
                     }
 
@@ -86,10 +87,13 @@
                 for (Restaurant r: restaurants
                      ) {
                     //display += r.getName() + " " + r.getHygieneRate() + "\n";
-                      display+= "Business name: " + r.getName() + "\n"
+                      display+= "Business name:      " + r.getName() + "\n"
+                              +"\n"
                             + "Business Address: "+r.getAddress() + "\n"
                             + "Postcode:                 " +r.getPostCode() + "\n"
-                            + "Rating: "+ r.getHygieneRate() + "\n"
+                              +"\n"
+                              + "Rating:                       "+ r.getHygieneRate() + "\n"
+                              +"Rating Date:             " + r.getRatingDate()
                             + "\n________________________________________________\n";
 
                 }
